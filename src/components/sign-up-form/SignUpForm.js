@@ -2,21 +2,32 @@ import React, { useRef, useState } from "react";
 import styles from "./SignUpForm.module";
 import { useForm } from "react-hook-form";
 import Button from "../button/Button";
+import Loading from "../utils/Loading";
 import { signUpService } from "../api/APIService";
 
 const SignUpForm = ({ toggleSignUp }) => {
   const { register, errors, handleSubmit, watch } = useForm();
-  const [error, setError] = useState(null);
+  const [error, setError] = useState(false);
+  const [loading, setLoading] = useState(false);
 
   const email = useRef({});
   email.current = watch("email", "");
 
+  const handleError = err => {
+    setLoading(false);
+    setError(`${err.message}: There was an error signing up`);
+    setTimeout(() => {
+      setError(false);
+    }, 1500);
+  };
+
   const onSubmit = async data => {
+    setLoading(true);
     try {
       await signUpService(data);
       toggleSignUp();
     } catch (err) {
-      setError(`${err.message}: There was an error signing up`);
+      handleError(err);
     }
   };
 
@@ -66,7 +77,7 @@ const SignUpForm = ({ toggleSignUp }) => {
           />
         </div>
         <p>{errors.confirmEmail && errors.confirmEmail.message}</p>
-        <Button type="submit" text="Send" />
+        {loading ? <Loading /> : <Button type="submit" text="Send" />}
         <p>{error}</p>
       </form>
     </div>
