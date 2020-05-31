@@ -1,0 +1,19 @@
+.header {
+  border-bottom: 1px solid black;
+}
+
+.header h1 {
+  margin-left: 4rem;
+  margin-top: 2rem;
+  margin-bottom: 2rem;
+  font-size: 3rem;
+}
+
+@media screen and (min-width: 550px) {
+  .header h1 {
+    margin-left: 8rem;
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+    font-size: 2rem;
+  }
+}
