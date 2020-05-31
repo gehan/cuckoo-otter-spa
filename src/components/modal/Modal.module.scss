@@ -37,3 +37,13 @@
   display: flex;
   justify-content: flex-end;
 }
+
+.modalHeader button {
+  font-size: 1.4rem;
+  font-weight: 700;
+  line-height: 1;
+  color: #000;
+  opacity: 0.3;
+  cursor: pointer;
+  border: none;
+}
