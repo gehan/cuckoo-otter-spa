@@ -1,26 +1,24 @@
-import React, { useRef, useState } from 'react'
-import styles from './SignUpForm.module'
-import { useForm } from 'react-hook-form'
-import Button from '../button/Button'
-import { signUpService, handleErrors } from '../api/APIService'
+import React, { useRef, useState } from "react";
+import styles from "./SignUpForm.module";
+import { useForm } from "react-hook-form";
+import Button from "../button/Button";
+import { signUpService } from "../api/APIService";
 
 const SignUpForm = ({ toggleSignUp }) => {
-  const { register, errors, handleSubmit, watch } = useForm()
-  const [error, setError] = useState(null)
+  const { register, errors, handleSubmit, watch } = useForm();
+  const [error, setError] = useState(null);
 
-  const email = useRef({})
-  email.current = watch('email', '')
+  const email = useRef({});
+  email.current = watch("email", "");
 
-  const onSubmit = data => {
-    signUpService(data)
-      .then(handleErrors)
-      .then(response => toggleSignUp())
-      .catch(error => {
-        setError(
-          `${error.message} ${error.name}: There was an error signing up`
-        )
-      })
-  }
+  const onSubmit = async data => {
+    try {
+      await signUpService(data);
+      toggleSignUp();
+    } catch (err) {
+      setError(`${err.message}: There was an error signing up`);
+    }
+  };
 
   return (
     <div className={styles.form}>
@@ -30,12 +28,12 @@ const SignUpForm = ({ toggleSignUp }) => {
           <span>Full name</span>
           <input
             className={styles.formField}
-            name='fullName'
+            name="fullName"
             ref={register({
-              required: 'You must specify a name',
+              required: "You must specify a name",
               minLength: {
                 value: 3,
-                message: 'Name must have at least 3 characters'
+                message: "Name must have at least 3 characters"
               }
             })}
           />
@@ -45,12 +43,12 @@ const SignUpForm = ({ toggleSignUp }) => {
           <span>Email</span>
           <input
             className={styles.formField}
-            name='email'
+            name="email"
             ref={register({
-              required: 'You must provide an email address',
+              required: "You must provide an email address",
               pattern: {
                 value: /^[^@]+@[^@]+\.[^@]+$/,
-                message: 'You must provide a valid email address'
+                message: "You must provide a valid email address"
               }
             })}
           />
@@ -60,19 +58,19 @@ const SignUpForm = ({ toggleSignUp }) => {
           <span>Confirm email</span>
           <input
             className={styles.formField}
-            name='confirmEmail'
+            name="confirmEmail"
             ref={register({
               validate: value =>
-                value === email.current || 'The emails do not match'
+                value === email.current || "The emails do not match"
             })}
           />
         </div>
         <p>{errors.confirmEmail && errors.confirmEmail.message}</p>
-        <Button type='submit' text='Send' />
+        <Button type="submit" text="Send" />
         <p>{error}</p>
       </form>
     </div>
-  )
-}
+  );
+};
 
-export default SignUpForm
+export default SignUpForm;
