@@ -1,7 +1,6 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
 import styles from './Modal.module'
-import SignUpForm from '../sign-up-form/SignUpForm'
 
 const Modal = ({ isOpen, child }) =>
   isOpen
