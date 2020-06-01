@@ -2,7 +2,7 @@ import React from 'react'
 
 import './App.scss'
 
-import LandingPage from './pages/landing-page/LandingPage'
+import LandingPage from '../../pages/landing-page/LandingPage'
 
 const App = () => (
   <div>

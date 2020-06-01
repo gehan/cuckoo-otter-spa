@@ -1,35 +1,35 @@
-import React, { useRef, useState } from "react";
-import styles from "./SignUpForm.module";
-import { useForm } from "react-hook-form";
-import Button from "../button/Button";
-import Loading from "../utils/Loading";
-import { signUpService } from "../api/APIService";
+import React, { useRef, useState } from 'react'
+import styles from './SignUpForm.module'
+import { useForm } from 'react-hook-form'
+import Button from '../utils/button/Button'
+import Loading from '../utils/loading/Loading'
+import { signUpService } from '../api/APIService'
 
 const SignUpForm = ({ toggleSignUp }) => {
-  const { register, errors, handleSubmit, watch } = useForm();
-  const [error, setError] = useState(false);
-  const [loading, setLoading] = useState(false);
+  const { register, errors, handleSubmit, watch } = useForm()
+  const [error, setError] = useState(false)
+  const [loading, setLoading] = useState(false)
 
-  const email = useRef({});
-  email.current = watch("email", "");
+  const email = useRef({})
+  email.current = watch('email', '')
 
   const handleError = err => {
-    setLoading(false);
-    setError(`${err.message}: There was an error signing up`);
+    setLoading(false)
+    setError(`${err.message}: There was an error signing up`)
     setTimeout(() => {
-      setError(false);
-    }, 1500);
-  };
+      setError(false)
+    }, 1500)
+  }
 
   const onSubmit = async data => {
-    setLoading(true);
+    setLoading(true)
     try {
-      await signUpService(data);
-      toggleSignUp();
+      await signUpService(data)
+      toggleSignUp()
     } catch (err) {
-      handleError(err);
+      handleError(err)
     }
-  };
+  }
 
   return (
     <div className={styles.form}>
@@ -39,12 +39,12 @@ const SignUpForm = ({ toggleSignUp }) => {
           <span>Full name</span>
           <input
             className={styles.formField}
-            name="fullName"
+            name='fullName'
             ref={register({
-              required: "You must specify a name",
+              required: 'You must specify a name',
               minLength: {
                 value: 3,
-                message: "Name must have at least 3 characters"
+                message: 'Name must have at least 3 characters'
               }
             })}
           />
@@ -54,12 +54,12 @@ const SignUpForm = ({ toggleSignUp }) => {
           <span>Email</span>
           <input
             className={styles.formField}
-            name="email"
+            name='email'
             ref={register({
-              required: "You must provide an email address",
+              required: 'You must provide an email address',
               pattern: {
                 value: /^[^@]+@[^@]+\.[^@]+$/,
-                message: "You must provide a valid email address"
+                message: 'You must provide a valid email address'
               }
             })}
           />
@@ -69,19 +69,19 @@ const SignUpForm = ({ toggleSignUp }) => {
           <span>Confirm email</span>
           <input
             className={styles.formField}
-            name="confirmEmail"
+            name='confirmEmail'
             ref={register({
               validate: value =>
-                value === email.current || "The emails do not match"
+                value === email.current || 'The emails do not match'
             })}
           />
         </div>
         <p>{errors.confirmEmail && errors.confirmEmail.message}</p>
-        {loading ? <Loading /> : <Button type="submit" text="Send" />}
+        {loading ? <Loading /> : <Button type='submit' text='Send' />}
         <p>{error}</p>
       </form>
     </div>
-  );
-};
+  )
+}
 
-export default SignUpForm;
+export default SignUpForm

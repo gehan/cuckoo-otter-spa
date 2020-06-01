@@ -1,7 +1,6 @@
 import React from 'react'
 import { render } from 'react-dom'
 
-import './App.scss'
-import App from './App.jsx'
+import App from './components/app/App'
 
 render(<App />, document.getElementById('app'))

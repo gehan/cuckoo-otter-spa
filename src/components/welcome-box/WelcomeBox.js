@@ -1,13 +1,13 @@
-import React from "react";
-import styles from "./WelcomeBox.module";
+import React from 'react'
+import styles from './WelcomeBox.module'
 
-import Button from "../button/Button";
-import Modal from "../modal/Modal";
-import useModal from "../modal/useModal";
-import SignUpContainer from "../sign-up-form/SignUpContainer";
+import Button from '../utils/button/Button'
+import Modal from '../modal/Modal'
+import useModal from '../modal/useModal'
+import SignUpContainer from '../sign-up-form/SignUpContainer'
 
 const WelcomeBox = () => {
-  const { isOpen, toggleModal } = useModal();
+  const { isOpen, toggleModal } = useModal()
 
   return (
     <div className={styles.container}>
@@ -16,14 +16,14 @@ const WelcomeBox = () => {
         happiness is through Otter!
       </h1>
       <p>Be the first to know when we launch</p>
-      <Button handleClick={toggleModal} text="Request an invite" />
+      <Button handleClick={toggleModal} text='Request an invite' />
       <Modal
         toggleModal={toggleModal}
         isOpen={isOpen}
         child={<SignUpContainer toggleModal={toggleModal} />}
       />
     </div>
-  );
-};
+  )
+}
 
-export default WelcomeBox;
+export default WelcomeBox

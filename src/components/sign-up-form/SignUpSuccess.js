@@ -1,6 +1,6 @@
 import React from 'react'
 import styles from './SignUpSuccess.module'
-import Button from '../button/Button'
+import Button from '../utils/button/Button'
 
 const SignUpSuccess = ({ toggleModal }) => (
   <div className={styles.container}>
